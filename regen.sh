@@ -48,11 +48,11 @@ echo "{" > "$MANIFEST"
 # We include this in the manifest so we can, in theory, obtain a manifest file by whatever means,
 # and use it to get a perfect copy of the repository as it was when the file hashes it lists were correct.
 COMMIT="$(git rev-parse HEAD)"
-echo "   \"COMMIT\" = \"$COMMIT\"," >> "$MANIFEST"
+echo "   COMMIT = \"$COMMIT\"," >> "$MANIFEST"
 
 # The `HTTP_ROOT` key is allowed to be any HTTP server that can serve the files in the repository
 # per `/$COMMIT/path/from/root/of/repository`
-echo "   \"HTTP_ROOT\" = \"https://raw.githubusercontent.com/Monadic-Cat/mc-cc/\"," >> "$MANIFEST"
+echo "   HTTP_ROOT = \"https://raw.githubusercontent.com/Monadic-Cat/mc-cc/\"," >> "$MANIFEST"
 
 while read line ; do
     FIRST=""
@@ -68,7 +68,7 @@ while read line ; do
             exit 1
         fi
     done
-    echo "   \"$SECOND\" = \"$FIRST\"," >> "$MANIFEST"
+    echo "   $SECOND = \"$FIRST\"," >> "$MANIFEST"
 done < "$CMD_TMP"
 echo "}" >> "$MANIFEST"
 
