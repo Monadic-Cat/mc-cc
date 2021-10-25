@@ -3,7 +3,7 @@
 # This script generates a manifest file for a ComputerCraft
 # computer to read, so it knows what to download.
 
-MANIFEST=manifest
+MANIFEST=manifest/manifest
 
 if [ -n "$(git status --porcelain)" ] ; then
     if [ -z "$ALLOW_DIRTY" ] ; then
@@ -66,7 +66,7 @@ while read line ; do
             exit 1
         fi
     done
-    echo "   \"$SECOND\" = \"$FIRST\"," >> manifest
+    echo "   \"$SECOND\" = \"$FIRST\"," >> "$MANIFEST"
 done < "$CMD_TMP"
 echo "}" >> "$MANIFEST"
 
