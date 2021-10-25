@@ -3,7 +3,9 @@
 # This script generates a manifest file for a ComputerCraft
 # computer to read, so it knows what to download.
 
-MANIFEST=manifest/manifest
+if [ -z "$MANIFEST" ] ; then
+    MANIFEST=manifest
+fi
 
 if [ -n "$(git status --porcelain)" ] ; then
     if [ -z "$ALLOW_DIRTY" ] ; then
