@@ -5,6 +5,12 @@
 
 MANIFEST=manifest
 
+if [ -n "$(git status --porcelain)" ] ; then
+    if [ -z "$ALLOW_DIRTY" ] ; then
+        echo "Working tree dirty. Exiting."
+        exit 1
+    fi
+fi
 
 # List of path patterns we want to include.
 INCLUDE_PATHS=""
