@@ -19,7 +19,7 @@ local latest_manifest = textutils.unserializeJSON(latest_manifest_text)
 local old_manifest_file = io.open(MANIFEST_PATH, "r")
 local old_manifest = nil
 if not (old_manifest_file == nil) then
-   local old_manifest_text = old_manifest_file.readAll()
+   local old_manifest_text = old_manifest_file:read("*a")
    old_manifest = textutils.unserializeJSON(old_manifest_text)
    old_manifest_file:close()
 end
