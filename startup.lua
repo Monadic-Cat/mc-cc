@@ -25,6 +25,8 @@ local function findStartups(sBaseDir)
    return tStartups
 end
 
+disk_boot = false
+
 -- Run the user created startup, either from disk drives or the root
 local tUserStartups = nil
 if settings.get("shell.allow_startup") then
@@ -36,15 +38,18 @@ if settings.get("shell.allow_disk_startup") then
          local startups = findStartups(disk.getMountPath(sName))
          if startups then
             tUserStartups = startups
+            disk_boot = true
             break
          end
       end
    end
 end
+
+system_dir = "/"
 if tUserStartups then
    for _, v in pairs(tUserStartups) do
-      print(v)
+      system_dir = fs.getDir(v)
    end
 end
 
-shell.setPath(shell_path .. ":/bin")
+shell.setPath(shell_path .. ":".. system_dir .. "bin")
