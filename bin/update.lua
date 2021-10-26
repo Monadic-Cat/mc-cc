@@ -11,7 +11,7 @@ local MANIFEST_URL = "https://gist.githubusercontent.com/Monadic-Cat/14d640bdddd
 local MANIFEST_PATH = "/etc/manifest"
 
 -- TODO: figure out cache busting for this particular line
-local latest_manifest_req = http.get(MANIFEST_URL)
+local latest_manifest_req = http.get(MANIFEST_URL .. "?owo=" .. os.epoch())
 local latest_manifest_text = latest_manifest_req.readAll()
 latest_manifest_req.close()
 local latest_manifest = textutils.unserializeJSON(latest_manifest_text)
