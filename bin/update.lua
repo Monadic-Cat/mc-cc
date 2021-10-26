@@ -18,7 +18,7 @@ latest_manifest_req.close()
 local latest_manifest = textutils.unserializeJSON(latest_manifest_text)
 
 local old_manifest_file = io.open("/etc/manifest", "r")
-local old_manifest = {}
+local old_manifest = nil
 if not (old_manifest_file == nil) then
    local old_manifest_text = old_manifest_file.readAll()
    old_manifest = textutils.unserializeJSON(old_manifest_text)
