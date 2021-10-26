@@ -26,7 +26,7 @@ end
 
 function make_file_hash_dict(file_list)
    local dict = {}
-   for _, file in file_list do
+   for _, file in ipairs(file_list) do
       dict[file.name] = file.hash
    end
 end
