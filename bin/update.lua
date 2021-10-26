@@ -22,6 +22,7 @@ local old_manifest = nil
 if not (old_manifest_file == nil) then
    local old_manifest_text = old_manifest_file.readAll()
    old_manifest = textutils.unserializeJSON(old_manifest_text)
+   old_manifest_file:close()
 end
 
 function make_file_hash_dict(file_list)
@@ -66,3 +67,4 @@ for name, content in pairs(files) do
    file:write(content)
    file:close()
 end
+
