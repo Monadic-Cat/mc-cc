@@ -63,6 +63,6 @@ end
 
 for name, content in pairs(files) do
    local file = io.open(name, "w")
-   file.write(content)
+   file:write(content)
    file.close()
 end
