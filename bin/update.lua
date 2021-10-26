@@ -55,7 +55,7 @@ end
 files = {}
 for _, needed in ipairs(diff) do
    local name = needed.name
-   local file_req = http.get(latest_manifest.HTTP_ROOT .. "/" .. name)
+   local file_req = http.get(latest_manifest.HTTP_ROOT .. "/" .. latest_manifest.COMMIT .. "/" .. name)
    local file_text = file_req.readAll()
    file_req.close()
    files[name] = file_text
