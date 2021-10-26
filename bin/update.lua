@@ -10,7 +10,6 @@
 local MANIFEST_URL = "https://gist.githubusercontent.com/Monadic-Cat/14d640bddddbb46196657a69539190ed/raw/manifest"
 local MANIFEST_PATH = "/etc/manifest"
 
--- TODO: figure out cache busting for this particular line
 local latest_manifest_req = http.get(MANIFEST_URL .. "?owo=" .. os.epoch())
 local latest_manifest_text = latest_manifest_req.readAll()
 latest_manifest_req.close()
