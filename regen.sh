@@ -19,6 +19,7 @@ INCLUDE_PATHS=""
 TMP_INCLUDE_PATHS="$(mktemp)"
 
 cat - <<EOF >> "$TMP_INCLUDE_PATHS"
+./startup.lua
 ./etc/*
 ./bin/*
 EOF
@@ -27,8 +28,9 @@ FIRST="1"
 while read line ; do
     if [ -n "$FIRST" ] ; then
         INCLUDE_PATHS="-path '$line'"
+        FIRST=""
     else
-        INCLUDE_PATHS="$IGNORE_FLAGS -or -path '$line'"
+        INCLUDE_PATHS="$INCLUDE_PATHS -or -path '$line'"
     fi
 done < "$TMP_INCLUDE_PATHS"
 rm "$TMP_INCLUDE_PATHS"
@@ -39,9 +41,11 @@ while read line ; do
     IGNORE_PATHS="$IGNORE_PATHS -not -path '$line'"
 done < .gitignore
 
-CMD="find . -type f $INCLUDE_PATHS $IGNORE_PATHS -exec sha1sum {} \;"
+CMD="find . -type f $INCLUDE_PATHS $IGNORE_PATHS"
 CMD_TMP="$(mktemp)"
-eval $CMD > "$CMD_TMP"
+eval $CMD | while read line ; do
+    sha1sum "$line" >> "$CMD_TMP"
+done
 
 echo "{" > "$MANIFEST"
 
