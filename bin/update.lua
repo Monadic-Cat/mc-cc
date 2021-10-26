@@ -53,8 +53,9 @@ end
 -- Step 3. Download all needed files.
 -- Type: { string -> string }
 files = {}
-for _, needed in ipairs(diff) do
+for i, needed in ipairs(diff) do
    local name = needed.name
+   print("Getting `" .. name .. "` (" .. i .. "/" .. #diff .. ")...")
    local file_req = http.get(latest_manifest.HTTP_ROOT .. "/" .. latest_manifest.COMMIT .. "/" .. name)
    local file_text = file_req.readAll()
    file_req.close()
