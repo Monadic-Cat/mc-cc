@@ -54,7 +54,7 @@ end
 -- Type: { string -> string }
 files = {}
 for _, name in ipairs(diff) do
-   local file_req = http.get(manifest.HTTP_ROOT .. "/" .. name)
+   local file_req = http.get(latest_manifest.HTTP_ROOT .. "/" .. name)
    local file_text = file_req.readAll()
    file_req.close()
    files[name] = file_text
