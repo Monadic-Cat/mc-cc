@@ -54,6 +54,8 @@ echo "   \"COMMIT\": \"$COMMIT\"" >> "$MANIFEST"
 # per `/$COMMIT/path/from/root/of/repository`
 echo "   ,\"HTTP_ROOT\": \"https://raw.githubusercontent.com/Monadic-Cat/mc-cc/\"" >> "$MANIFEST"
 
+echo "   ,\"files\": [" >> "$MANIFEST"
+SEP=""
 while read line ; do
     FIRST=""
     SECOND=""
@@ -68,8 +70,11 @@ while read line ; do
             exit 1
         fi
     done
-    echo "   ,\"$SECOND\": \"$FIRST\"" >> "$MANIFEST"
+    echo "      $SEP{\"name\": \"$SECOND\", \"hash\": \"$FIRST\" }" >> "$MANIFEST"
+    SEP=","
 done < "$CMD_TMP"
+echo "   ]" >> "$MANIFEST"
+
 echo "}" >> "$MANIFEST"
 
 rm "$CMD_TMP"
