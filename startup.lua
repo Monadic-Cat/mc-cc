@@ -46,10 +46,15 @@ if settings.get("shell.allow_disk_startup") then
 end
 
 system_dir = "/"
+system_startup = ""
 if tUserStartups then
    for _, v in pairs(tUserStartups) do
       system_dir = fs.getDir(v)
+      system_startup = v
    end
 end
 
-shell.setPath(shell_path .. ":".. system_dir .. "bin")
+print("Shell says:  " .. shell.getRunningProgram())
+print("Search says: " .. system_startup)
+
+shell.setPath(shell_path .. ":".. "/" .. system_dir .. "bin")
