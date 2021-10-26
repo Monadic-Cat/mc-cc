@@ -7,9 +7,8 @@
 -- TODO: Do stuff for crash consistency.
 -- TODO: Handle HTTP request failures.
 
-local TMP_DIR = "/.tmp"
-
 local MANIFEST_URL = "https://gist.githubusercontent.com/Monadic-Cat/14d640bddddbb46196657a69539190ed/raw/manifest"
+local MANIFEST_PATH = "/etc/manifest"
 
 -- TODO: figure out cache busting for this particular line
 local latest_manifest_req = http.get(MANIFEST_URL)
@@ -17,7 +16,7 @@ local latest_manifest_text = latest_manifest_req.readAll()
 latest_manifest_req.close()
 local latest_manifest = textutils.unserializeJSON(latest_manifest_text)
 
-local old_manifest_file = io.open("/etc/manifest", "r")
+local old_manifest_file = io.open(MANIFEST_PATH, "r")
 local old_manifest = nil
 if not (old_manifest_file == nil) then
    local old_manifest_text = old_manifest_file.readAll()
@@ -63,8 +62,13 @@ for _, needed in ipairs(diff) do
 end
 
 for name, content in pairs(files) do
+   fs.makeDir(fs.getDir(name))
    local file = io.open(name, "w")
    file:write(content)
    file:close()
 end
 
+fs.makeDir(fs.getDir(MANIFEST_PATH))
+local manifest_file = io.open(MANIFEST_PATH, "w")
+manifest_file:write(latest_manifest_text)
+manifest_file:close()
