@@ -29,6 +29,7 @@ function make_file_hash_dict(file_list)
    for _, file in ipairs(file_list) do
       dict[file.name] = file.hash
    end
+   return dict
 end
 
 -- TODO: consider saving hash here so we can validate downloaded file content
@@ -37,7 +38,7 @@ local diff = {}
 local count = 0
 if not (old_manifest == nil) then
    local old_hashes = make_file_hash_dict(old_manifest.files)
-   for name, hash in make_file_hash_dict(latest_manifest.files) do
+   for name, hash in pairs(make_file_hash_dict(latest_manifest.files)) do
       if not (hash == old_hashes[name]) then
          count = count + 1
          -- Type: [{ name: string }]
