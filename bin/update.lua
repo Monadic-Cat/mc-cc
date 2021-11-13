@@ -17,7 +17,7 @@ local latest_manifest = textutils.unserializeJSON(latest_manifest_text)
 
 local old_manifest_file = io.open(MANIFEST_PATH, "r")
 local old_manifest = nil
-if not (old_manifest_file == nil) then
+if old_manifest_file ~= nil then
    local old_manifest_text = old_manifest_file:read("*a")
    old_manifest = textutils.unserializeJSON(old_manifest_text)
    old_manifest_file:close()
@@ -35,10 +35,10 @@ end
 -- Type: [{ name: string }]
 local diff = {}
 local count = 0
-if not (old_manifest == nil) then
+if old_manifest ~= nil then
    local old_hashes = make_file_hash_dict(old_manifest.files)
    for name, hash in pairs(make_file_hash_dict(latest_manifest.files)) do
-      if not (hash == old_hashes[name]) then
+      if hash ~= old_hashes[name] then
          count = count + 1
          -- Type: [{ name: string }]
          diff[count] = { name = name }

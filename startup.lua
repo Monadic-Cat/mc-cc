@@ -10,7 +10,6 @@ path_additions = ":".. system_dir .. "/bin"
 if not (system_dir == "/") then
    path_additions = path_additions .. ":" .. system_dir .. "/bin/live"
    settings.set("system_dir", system_dir)
-   os.hmmm = 11
 end
 
 shell.setPath(shell_path .. path_additions)
